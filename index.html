@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Smarter</title>
+    <link rel="icon" href="study-icon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .resource-popup {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: left;
+        }
+
+        .resource-popup h3 {
+            margin-top: 0;
+            color: #3498db;
+        }
+
+        .resource-popup p {
+            margin-bottom: 10px;
+        }
+
+        .resource-popup a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+
+        .resource-popup a:hover {
+            text-decoration: underline;
+        }
+
+        .close-popup-button {
+            background: none;
+            border: none;
+            color: #777;
+            font-size: 1.2rem;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span class="logo-icon">💡</span>
+            Study Smarter
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Unlock Your Learning Potential with Study Smarter</h1>
+                <p class="hero-subtitle">Discover resources and strategies to learn effectively and achieve your academic goals.</p>
+                <button class="button primary-button" onclick="showResources()">Explore Resources</button>
+            </div>
+        </section>
+
+        <div id="resourcePopup" class="resource-popup">
+            <h3>Quick Access Resources</h3>
+            <p><a href="https://t.me/+-HD1bx41rgg2NjM1" target="_blank">Abhay batch</a></p>
+            <p><a href="https://t.me/+o4I3JtPCwaE0NDI1" target="_blank">Free books (More than 1700 files)</a></p>
+            <p><a href="https://t.me/+rI6asay_qyE5YWQ1" target="_blank">Padhle 24 hours batch</a></p>
+            <p><a href="https://t.me/+3fMAOyKoQMEwZGM1" target="_blank">Class 10th Topper Notes</a></p>
+            <p><a href="https://t.me/+mAYie2wbWtBjYmY1" target="_blank">Board Booster[PW]</a></p>
+            <p><a href="https://t.me/+01dDb_ICy4I0MmJl" target="_blank">Class 9 Resources</a></p>
+            <p><a href="https://t.me/+lJBxy2EwgUMyNDBl" target="_blank">Class 11</a></p>
+            <p><a href="https://t.me/+esYH5ap9a2ozYTg1" target="_blank">Aarambh 2026 (New)</a></p>
+            <p><a href="https://t.me/+vgxhmay-tW0zM2Nl" target="_blank">Prarambh science</a></p>
+            <button class="close-popup-button" onclick="hideResources()">&times;</button>
+        </div>
+
+        <section id="resources" class="resource-cards">
+            <div class="resource-card guide-card">
+                <div class="card-header">
+                    <div class="card-icon">📚</div>
+                    <h3>Study Guides</h3>
+                </div>
+                <div class="card-body">
+                    <p>Comprehensive guides covering various subjects and learning techniques.</p>
+                    <a href="https://t.me/class11smarterhub" target="_blank" class="button secondary-button">View Guides</a>
+                    <p class="link-description">Here you will get all class 11 tips and tricks</p>
+                </div>
+            </div>
+
+            <div class="resource-card technique-card">
+                <div class="card-header">
+                    <div class="card-icon">🧠</div>
+                    <h3>Learning Techniques</h3>
+                </div>
+                <div class="card-body">
+                    <p>Explore effective strategies like spaced repetition, active recall, and more.</p>
+                    <a href="learning-techniques.html" class="button secondary-button">Learn Techniques</a>
+                </div>
+            </div>
+
+            <div class="resource-card community-card">
+                <div class="card-header">
+                    <div class="card-icon">🤝</div>
+                    <h3>Community Forum</h3>
+                </div>
+                <div class="card-body">
+                    <p>Connect with fellow learners, share tips, and ask questions.</p>
+                    <a href="https://t.me/networkofabhay" target="_blank" class="button secondary-button">Join Forum</a>
+                    <p class="link-description">Here is our main channel</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Study Smarter. All Rights Reserved.</p>
+        <p class="powered-by">Empowering Learners Worldwide</p>
+    </footer>
+
+    <script>
+        function showResources() {
+            document.getElementById('resourcePopup').style.display = 'block';
+        }
+
+        function hideResources() {
+            document.getElementById('resourcePopup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
