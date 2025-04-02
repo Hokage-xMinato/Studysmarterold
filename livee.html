@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prarambh 2026</title>
+    <link rel="icon" href="study-icon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .link-button {
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        /* You can add specific styles for these buttons if needed */
+        .first-class-button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+        }
+
+        .first-class-button:hover {
+            background-color: #2980b9;
+        }
+
+        .second-class-button {
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+        }
+
+        .second-class-button:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span class="logo-icon">🚀</span> Prarambh 2026
+        </div>
+    </header>
+
+    <main>
+        <div class="button-container">
+            <button id="firstClassBtn" class="link-button first-class-button">1st Class</button>
+            <button id="secondClassBtn" class="link-button second-class-button">2nd Class</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Prarambh 2026. All Rights Reserved.</p>
+    </footer>
+
+    <script src="links.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstClassBtn = document.getElementById('firstClassBtn');
+            const secondClassBtn = document.getElementById('secondClassBtn');
+
+            if (typeof classLinks !== 'undefined') {
+                if (classLinks.firstClassLink) {
+                    firstClassBtn.addEventListener('click', function() {
+                        window.open(classLinks.firstClassLink, '_blank');
+                    });
+                } else {
+                    firstClassBtn.textContent = '1st Class - Class not started yet';
+                    firstClassBtn.disabled = true;
+                }
+
+                if (classLinks.secondClassLink) {
+                    secondClassBtn.addEventListener('click', function() {
+                        window.open(classLinks.secondClassLink, '_blank');
+                    });
+                } else {
+                    secondClassBtn.textContent = '2nd Class - Class not started yet';
+                    secondClassBtn.disabled = true;
+                }
+            } else {
+                console.error('links.js file not loaded or classLinks object is missing.');
+                firstClassBtn.disabled = true;
+                firstClassBtn.textContent = '1st Class (Links Error)';
+                secondClassBtn.disabled = true;
+                secondClassBtn.textContent = '2nd Class (Links Error)';
+            }
+        });
+    </script>
+</body>
+</html>
