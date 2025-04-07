@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Generate Temporary Access</title>
+<style>
+body {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.container {
+  text-align: center;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#protectedContent {
+  display: none;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#accessDenied {
+  display: block;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #ffe0e0;
+  color: #cc0000;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Generate Temporary Access Key</h1>
+  <p>Tap the button below to get a temporary key (valid for 24 hours).</p>
+  <button id="generateKeyBtn">Generate Key</button>
+</div>
+
+<div class="container">
+  <div id="protectedContent">
+    <h1>Welcome to the Protected Content!</h1>
+    <p>You have temporary access granted until tomorrow, April 08, 2025 at approximately 10:49 AM PST (which is tomorrow in India).</p>
+  </div>
+  <div id="accessDenied">
+    <h1>Access Denied</h1>
+    <p>Your temporary key has expired or hasn't been generated yet.</p>
+    <a href="/generate-key">Generate New Key</a>
+  </div>
+</div>
+
+<script>
+  const generateKeyBtn = document.getElementById('generateKeyBtn');
+  const protectedContent = document.getElementById('protectedContent');
+  const accessDenied = document.getElementById('accessDenied');
+  const linkShortenerUrl = '/get-key'; // Assuming your intermediate page is on the same domain
+
+  function checkAccess() {
+    const key = localStorage.getItem('tempAccessKey');
+    const expiry = localStorage.getItem('tempAccessExpiry');
+    const now = Date.now();
+    const expiryTime = parseInt(expiry);
+
+    if (key && expiry && !isNaN(expiryTime) && now < expiryTime) {
+      protectedContent.style.display = 'block';
+      accessDenied.style.display = 'none';
+    } else {
+      protectedContent.style.display = 'none';
+      accessDenied.style.display = 'block';
+      localStorage.removeItem('tempAccessKey');
+      localStorage.removeItem('tempAccessExpiry');
+    }
+  }
+
+  generateKeyBtn.addEventListener('click', () => {
+    window.location.href = linkShortenerUrl;
+  });
+
+  // Check access on page load
+  document.addEventListener('DOMContentLoaded', checkAccess);
+</script>
+
+</body>
+</html>

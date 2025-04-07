@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Generating Key...</title>
+<style>
+body {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  text-align: center;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <p>Generating temporary access key and redirecting back to the main content...</p>
+  </div>
+
+  <script>
+    const key = 'temporaryAccessGranted'; // You can make this more complex
+    const expiryHours = 24;
+    const expiryTime = Date.now() + (expiryHours * 60 * 60 * 1000);
+    const protectedPageUrl = '/protected'; // Adjust if your protected page has a different name
+
+    localStorage.setItem('tempAccessKey', key);
+    localStorage.setItem('tempAccessExpiry', expiryTime);
+
+    // Redirect back to the protected page
+    window.location.href = protectedPageUrl;
+  </script>
+</body>
+</html>
