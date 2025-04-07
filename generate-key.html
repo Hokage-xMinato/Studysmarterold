@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Generate Temporary Access</title>
+<style>
+  <link rel="stylesheet" href="style.css">
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Generate Temporary Access Key</h1>
+  <p>Tap the button below to go through the key generation process.</p>
+  <button onclick="window.location.href = 'YOUR_EXTERNAL_URL_PROTECTOR_LINK';">Generate Key</button>
+</div>
+
+<div class="container">
+  <div id="protectedContent">
+    <h1>Welcome to the Protected Content!</h1>
+    <p>You have temporary access granted until tomorrow, April 08, 2025 at approximately 11:55 AM IST.</p>
+  </div>
+  <div id="accessDenied">
+    <h1>Access Denied</h1>
+    <p>Your temporary key has expired or hasn't been generated yet.</p>
+    <a href="/generate-key">Generate New Key</a>
+  </div>
+</div>
+
+<script>
+  const generateKeyBtn = document.getElementById('generateKeyBtn');
+  const protectedContent = document.getElementById('protectedContent');
+  const accessDenied = document.getElementById('accessDenied');
+  const linkShortenerUrl = '/get-key'; // The page that will generate the key
+
+  function checkAccess() {
+    const key = localStorage.getItem('tempAccessKey');
+    const expiry = localStorage.getItem('tempAccessExpiry');
+    const now = Date.now();
+    const expiryTime = parseInt(expiry);
+
+    if (key && expiry && !isNaN(expiryTime) && now < expiryTime) {
+      protectedContent.style.display = 'block';
+      accessDenied.style.display = 'none';
+    } else {
+      protectedContent.style.display = 'none';
+      accessDenied.style.display = 'block';
+      localStorage.removeItem('tempAccessKey');
+      localStorage.removeItem('tempAccessExpiry');
+    }
+  }
+
+  // Check access on page load
+  document.addEventListener('DOMContentLoaded', checkAccess);
+</script>
+
+</body>
+</html>
