@@ -29,19 +29,19 @@ p {
 </head>
 <body>
   <div class="container">
-    <p>Generating temporary access key and redirecting back to the main content...</p>
+    <p>Generating temporary access key and redirecting to the protected content...</p>
   </div>
 
   <script>
-    const key = 'temporaryAccessGranted'; // You can make this more complex
+    const generatedKey = Math.random().toString(36).substring(2, 15); // Generate a random key
     const expiryHours = 24;
     const expiryTime = Date.now() + (expiryHours * 60 * 60 * 1000);
-    const protectedPageUrl = '/protected'; // Adjust if your protected page has a different name
+    const protectedPageUrl = '/protected'; // The URL of your protected content
 
-    localStorage.setItem('tempAccessKey', key);
+    localStorage.setItem('tempAccessKey', generatedKey);
     localStorage.setItem('tempAccessExpiry', expiryTime);
 
-    // Redirect back to the protected page
+    // Redirect to the final protected content
     window.location.href = protectedPageUrl;
   </script>
 </body>
