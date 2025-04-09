@@ -95,7 +95,7 @@ canvas {
 <body>
     <!-- Preloader Spinner -->
 <div id="preloader">
-  <canvas id="canvas" width="600" height="600"></canvas>
+  <canvas id="canvas" width="300" height="300"></canvas>
 </div>
     <header>
         <div class="logo">
@@ -192,11 +192,10 @@ canvas {
   const cy = canvas.height / 2;
 
   const rings = [
-    { radius: 160, angle: 0, speed: 0.015, hueOffset: 0 },
-    { radius: 120, angle: 0, speed: -0.02, hueOffset: 120 },
-    { radius: 80, angle: 0, speed: 0.025, hueOffset: 240 }
-  ];
-
+  { radius: 80, angle: 0, speed: 0.015, hueOffset: 0 },
+  { radius: 60, angle: 0, speed: -0.02, hueOffset: 120 },
+  { radius: 40, angle: 0, speed: 0.025, hueOffset: 240 }
+];
   const trailLength = 1.6 * Math.PI;
 
   function hslToColor(hue) {
