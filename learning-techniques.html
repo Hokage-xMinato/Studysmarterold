@@ -7,6 +7,34 @@
     <link rel="icon" href="study-icon.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <style>
+        .loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.content.visible {
+  display: flex !important;
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
         main {
             padding: 30px;
         }
@@ -46,6 +74,20 @@
     </style>
 </head>
 <body>
+    <div class="loader" id="loader">
+  <div class="container">
+    <div class="cube">
+      <div class="face front"></div>
+      <div class="face back"></div>
+      <div class="face left"></div>
+      <div class="face right"></div>
+      <div class="face top"></div>
+      <div class="face bottom"></div>
+    </div>
+  </div>
+    </div>
+    <div class="content" id="content" style="display: none;">
+  <!-- Your actual website content goes here -->
     <header>
         <div class="logo">
             <span class="logo-icon">💡</span>
@@ -114,5 +156,15 @@
         <p>&copy; 2025 Study Smarter. All Rights Reserved.</p>
         <p class="powered-by">Empowering Learners Worldwide</p>
     </footer>
+    </div>
+    <script>
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("loader").classList.add("hidden");
+      document.getElementById("content").classList.add("visible");
+      document.body.style.overflow = "auto";
+    }, 5000); // 5 seconds
+  });
+    </script>
 </body>
 </html>
