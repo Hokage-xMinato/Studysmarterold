@@ -27,6 +27,46 @@
 canvas {
   background: transparent;
 }
+        .special-btn {
+  display: inline-block;
+  margin: 15px 0;
+  padding: 16px 35px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  background: linear-gradient(45deg, #ff007f, #8e2de2, #4a00e0);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 0 20px #ff00c8, 0 0 40px #8e2de2;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.special-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.special-btn:hover::before {
+  top: 0;
+  left: 0;
+  opacity: 0.25;
+}
+
+.special-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px #ff00c8, 0 0 60px #8e2de2;
+}
         .resource-popup {
             display: none; /* Hidden by default */
             position: fixed;
@@ -69,6 +109,74 @@ canvas {
             right: 10px;
             cursor: pointer;
         }
+
+        .batch-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  padding: 30px 25px;
+  text-align: center;
+  max-width: 300px;
+  margin: 20px auto;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  transition: all 0.4s ease;
+}
+
+.batch-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 30px #ff00c8, 0 0 60px #8e2de2;
+}
+
+.batch-card h3 {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px #ff00c8;
+}
+
+.batch-card p {
+  color: #ddd;
+  margin-bottom: 25px;
+  font-size: 1.05rem;
+}
+
+.batch-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  background: linear-gradient(45deg, #ff007f, #8e2de2, #4a00e0);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #ff00c8, 0 0 30px #8e2de2;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.batch-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.batch-btn:hover::before {
+  top: 0;
+  left: 0;
+  opacity: 0.3;
+}
+
+.batch-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px #ff00c8, 0 0 50px #8e2de2;
+}
             
         /* Add any specific styles for the Live Class button or container here if needed */
         .live-class-button-container {
@@ -113,7 +221,13 @@ canvas {
             </div>
         </section>
 
-        <a href="abhay2025.html" class="button">Abhay Batch 2025</a>
+        <div class="batch-card">
+  <h3>Abhay Batch 2025</h3>
+  <p>Access this batch for free with us</p>
+  <a href="abhay2025.html" class="batch-btn">Get it now</a>
+        </div>
+
+    
 
         <div id="resourcePopup" class="resource-popup">
             <h3>Quick Access Resources</h3>
