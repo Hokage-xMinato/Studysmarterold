@@ -26,27 +26,27 @@
 
   .cube {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 75px;
+    height: 75px;
     transform-style: preserve-3d;
     animation: spin 4s linear infinite;
   }
 
   .face {
     position: absolute;
-    width: 150px;
-    height: 150px;
+    width: 75px;
+    height: 75px;
     background: rgba(0, 255, 255, 0.2);
     border: 2px solid #0ff;
     box-shadow: 0 0 20px #0ff;
   }
 
-  .front  { transform: translateZ(75px); }
-  .back   { transform: rotateY(180deg) translateZ(75px); }
-  .left   { transform: rotateY(-90deg) translateZ(75px); }
-  .right  { transform: rotateY(90deg) translateZ(75px); }
-  .top    { transform: rotateX(90deg) translateZ(75px); }
-  .bottom { transform: rotateX(-90deg) translateZ(75px); }
+  .front  { transform: translateZ(37px); }
+  .back   { transform: rotateY(180deg) translateZ(37px); }
+  .left   { transform: rotateY(-90deg) translateZ(37px); }
+  .right  { transform: rotateY(90deg) translateZ(37px); }
+  .top    { transform: rotateX(90deg) translateZ(37px); }
+  .bottom { transform: rotateX(-90deg) translateZ(37px); }
 
   @keyframes spin {
     0% { transform: rotateX(0deg) rotateY(0deg); }
