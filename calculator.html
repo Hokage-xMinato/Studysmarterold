@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Powerhouse</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background-color: #eee;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .navigation button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            flex-grow: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timer-section,
+        .stopwatch-section,
+        .goals-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 300px;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+
+        .controls {
+            margin-top: 15px;
+        }
+
+        .controls input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            width: 50px;
+            text-align: center;
+        }
+
+        .controls button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .start-timer,
+        .start-stopwatch {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .pause-timer,
+        .pause-stopwatch {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .reset-timer,
+        .reset-stopwatch {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .goal-input {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .goal-input input[type="text"],
+        .goal-input input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            flex-grow: 1;
+        }
+
+        .goal-input input[type="number"] {
+            width: 80px;
+        }
+
+        .goal-input button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .goal-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .goal-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .goal-details {
+            flex-grow: 1;
+        }
+
+        .goal-timer {
+            font-size: 0.9em;
+            color: #777;
+            margin-left: 10px;
+        }
+
+        .calculator-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .results-section {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .warning {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Calculator Styles */
+        .calculator-popup {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .calculator-display {
+            width: 200px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            text-align: right;
+            font-size: 1.2em;
+            background-color: #eee;
+        }
+
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 50px);
+            gap: 5px;
+            width: 215px;
+        }
+
+        .calculator-buttons button {
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1em;
+            background-color: #e0e0e0; /* Solid background color */
+            text-align: center;
+            color: #333; /* Default text color */
+        }
+
+        .calculator-buttons button.operator {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        .calculator-buttons button.equals {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Responsive Design Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .timer-section,
+            .stopwatch-section,
+            .goals-section {
+                min-width: auto;
+                margin-bottom: 20px;
+            }
+
+            .navigation {
+                flex-direction: column;
+            }
+
+            .navigation button {
+                margin-bottom: 10px;
+                flex-grow: 0;
+            }
+
+            .goal-input {
+                flex-direction: column;
+            }
+
+            .goal-input input[type="text"],
+            .goal-input input[type="number"],
+            .goal-input button {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+
+            .calculator-popup {
+                bottom: auto;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation">
+        <button onclick="showSection('timer')">Timer</button>
+        <button onclick="showSection('stopwatch')">Stopwatch</button>
+        <button onclick="showSection('goals')">Goals & Tracking</button>
+    </div>
+
+    <div class="container">
+        <div class="timer-section">
+            <h2>Timer</h2>
+            <div class="display">00:00:00</div>
+            <div class="controls">
+                <input type="number" id="timer-hours" placeholder="HH" min="0" max="99"> :
+                <input type="number" id="timer-minutes" placeholder="MM" min="0" max="59"> :
+                <input type="number" id="timer-seconds" placeholder="SS" min="0" max="59">
+                <button class="start-timer">Start</button>
+                <button class="pause-timer">Pause</button>
+                <button class="reset-timer">Reset</button>
+            </div>
+        </div>
+
+        <div class="stopwatch-section hidden">
+            <h2>Stopwatch</h2>
+            <div class="display">00:00:00.00</div>
+            <div class="controls">
+                <button class="start-stopwatch">Start</button>
+                <button class="pause-stopwatch">Pause</button>
+                <button class="reset-stopwatch">Reset</button>
+                <button class="lap-stopwatch">Lap</button>
+                <div class="laps"></div>
+            </div>
+        </div>
+
+        <div class="goals-section hidden">
+            <h2>Goals</h2>
+            <div class="goal-input">
+                <input type="text" id="new-goal-text" placeholder="Enter new goal">
+                <input type="number" id="new-goal-time" placeholder="Minutes">
+                <button id="add-goal">Add Goal</button>
+            </div>
+            <ul id="goal-list">
+                </ul>
+            <div class="results-section">
+                <h3>Goal Tracking</h3>
+                <ul id="results-list">
+                    </ul>
+            </div>
+        </div>
+    </div>
+
+    <button class="calculator-button" onclick="toggleCalculator()">Calculator</button>
+
+    <div id="calculator-popup" class="calculator-popup hidden">
+        <input type="text" id="calculator-display" class="calculator-display" value="0" disabled>
+        <div class="calculator-buttons">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="appendOperator('/')" class="operator">/</button>
+            <button onclick="appendOperator('*')" class="operator">*</button>
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button onclick="appendOperator('-')" class="operator">-</button>
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button onclick="appendOperator('+')" class="operator">+</button>
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button onclick="calculate()" class="equals">=</button>
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="appendDecimal()">.</button>
+        </div>
+    </div>
+
+    <script>
+        // Navigation
+        const timerSection = document.querySelector('.timer-section');
+        const stopwatchSection = document.querySelector('.stopwatch-section');
+        const goalsSection = document.querySelector('.goals-section');
+
+        function showSection(sectionId) {
+            timerSection.classList.add('hidden');
+            stopwatchSection.classList.add('hidden');
+            goalsSection.classList.add('hidden');
+
+            if (sectionId === 'timer') {
+                timerSection.classList.remove('hidden');
+            } else if (sectionId === 'stopwatch') {
+                stopwatchSection.classList.remove('hidden');
+            } else if (sectionId === 'goals') {
+                goalsSection.classList.remove('hidden');
+            }
+        }
+
+        showSection('timer'); // Show timer by default
+
+        // Timer functionality
+        let timerInterval;
+        let timerSeconds = 0;
+        const timerDisplay = document.querySelector('.timer-section .display');
+        const timerStartButton = document.querySelector('.start-timer');
+        const timerPauseButton = document.querySelector('.pause-timer');
+        const timerResetButton = document.querySelector('.reset-timer');
+        const timerHoursInput = document.getElementById('timer-hours');
+        const timerMinutesInput = document.getElementById('timer-minutes');
+        const timerSecondsInput = document.getElementById('timer-seconds');
+
+        function updateTimerDisplay() {
+            const hours = Math.floor(timerSeconds / 3600);
+            const minutes = Math.floor((timerSeconds % 3600) / 60);
+            const seconds = timerSeconds % 60;
+            timerDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        timerStartButton.addEventListener('click', () => {
+            const inputHours = parseInt(timerHoursInput.value) || 0;
+            const inputMinutes = parseInt(timerMinutesInput.value) || 0;
+            const inputSeconds = parseInt(timerSecondsInput.value) || 0;
+            timerSeconds = (inputHours * 3600) + (inputMinutes * 60) + inputSeconds;
+            updateTimerDisplay();
+            if (!timerInterval) {
+                timerInterval = setInterval(() => {
+                    if (timerSeconds > 0) {
+                        timerSeconds--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        alert("Time's up!"); // Basic alert for now
+                        // We can integrate alarm logic here later
+                    }
+                }, 1000);
+            }
+        });
+
+        timerPauseButton.addEventListener('click', () => {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        });
+
+        timerResetButton.addEventListener('click', () => {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerSeconds = 0;
+            updateTimerDisplay();
+            timerHoursInput.value = '';
+            timerMinutesInput.value = '';
+            timerSecondsInput.value = '';
+        });
+
+        // Stopwatch functionality
+        let stopwatchInterval;
+        let stopwatchTime = 0;
+        const stopwatchDisplay = document.querySelector('.stopwatch-section .display');
+        const stopwatchStartButton = document.querySelector('.start-stopwatch');
+        const stopwatchPauseButton = document.querySelector('.pause-stopwatch');
+        const stopwatchResetButton = document.querySelector('.reset-stopwatch');
+        const stopwatchLapButton = document.querySelector('.lap-stopwatch');
+        const lapsContainer = document.querySelector('.laps');
+
+        function updateStopwatchDisplay() {
+            const hours = Math.floor(stopwatchTime / 3600);
+            const minutes = Math.floor((stopwatchTime % 3600) / 60);
+            const seconds = Math.floor(stopwatchTime % 60);
+            const milliseconds = String(Math.floor((stopwatchTime - Math.floor(stopwatchTime)) * 100)).padStart(2, '0');
+            stopwatchDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${milliseconds}`;
+        }
+
+        stopwatchStartButton.addEventListener('click', () => {
+            if (!stopwatchInterval) {
+                stopwatchInterval = setInterval(() => {
+                    stopwatchTime += 0.01;
+                    updateStopwatchDisplay();
+                }, 10);
+            }
+        });
+
+        stopwatchPauseButton.addEventListener('click', () => {
+            clearInterval(stopwatchInterval);
+            stopwatchInterval = null;
+        });
+
+        stopwatchResetButton.addEventListener('click', () => {
+            clearInterval(stopwatchInterval);
+            stopwatchInterval = null;
+            stopwatchTime = 0;
+            updateStopwatchDisplay();
+            lapsContainer.innerHTML = '';
+        });
+
+        stopwatchLapButton.addEventListener('click', () => {
+            const lapTime = stopwatchDisplay.textContent;
+            const lapItem = document.createElement('div');
+            lapItem.textContent = lapTime;
+            lapsContainer.appendChild(lapItem);
+        });
+
+        // Goal management
+        const newGoalText = document.getElementById('new-goal-text');
+        const newGoalTime = document.getElementById('new-goal-time');
+        const addGoalButton = document.getElementById('add-goal');
+        const goalList = document.getElementById('goal-list');
+        const resultsList = document.getElementById('results-list');
+        let goals = [];
+
+        addGoalButton.addEventListener('click', () => {
+            const goalText = newGoalText.value.trim();
+            const goalDuration = parseInt(newGoalTime.value) || 0;
+            if (goalText && goalDuration > 0) {
+                const goalId = Date.now(); // Simple unique ID
+                goals.push({ id: goalId, text: goalText, duration: goalDuration * 60, startTime: null, endTime: null, completed: false, inTime: false, remainingTime: goalDuration * 60, timerIntervalId: null });
+                renderGoals();
+                newGoalText.value = '';
+                newGoalTime.value = '';
+            } else if (!goalText) {
+                alert("Please enter a goal.");
+            } else if (goalDuration <= 0) {
+                alert("Please set a valid time for the goal.");
+            }
+        });
+
+        function formatTimeForDisplay(totalSeconds) {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function updateGoalTimerDisplay(goalId) {
+            const goalIndex = goals.findIndex(g => g.id === goalId);
+            if (goalIndex !== -1 && goals[goalIndex].startTime) {
+                const currentTime = new Date().getTime();
+                const elapsedTime = Math.floor((currentTime - goals[goalIndex].startTime.getTime()) / 1000);
+                goals[goalIndex].remainingTime = Math.max(0, goals[goalIndex].duration - elapsedTime);
+                const timerDisplay = document.querySelector(`#goal-${goalId} .goal-timer`);
+                if (timerDisplay) {
+                    timerDisplay.textContent = formatTimeForDisplay(goals[goalIndex].remainingTime);
+                    if (goals[goalIndex].remainingTime <= 0 && !goals[goalIndex].completed) {
+                        timerDisplay.classList.add('warning');
+                    } else {
+                        timerDisplay.classList.remove('warning');
+                    }
+                }
+            }
+        }
+
+        function startGoalTimer(goal) {
+            goal.startTime = new Date();
+            goal.timerIntervalId = setInterval(() => {
+                updateGoalTimerDisplay(goal.id);
+                if (goal.remainingTime <= 0 && !goal.completed) {
+                    clearInterval(goal.timerIntervalId);
+                    alert(`Time's up for goal: "${goal.text}"!`);
+                }
+            }, 1000);
+        }
+
+        function renderGoals() {
+            goalList.innerHTML = '';
+            goals.forEach(goal => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('goal-item');
+                listItem.id = `goal-${goal.id}`;
+                listItem.innerHTML = `
+                    <input type="checkbox" id="goal-check-${goal.id}" ${goal.completed ? 'checked' : ''}>
+                    <div class="goal-details">
+                        <label for="goal-check-${goal.id}">${goal.text} (${goal.duration / 60} min)</label>
+                        <span class="goal-timer">${goal.startTime ? formatTimeForDisplay(goal.remainingTime) : '00:00'}</span>
+                    </div>
+                    ${goal.startTime ? '' : `<button class="start-goal" data-id="${goal.id}">Start</button>`}
+                `;
+                goalList.appendChild(listItem);
+
+                const checkbox = listItem.querySelector(`#goal-check-${goal.id}`);
+                checkbox.addEventListener('change', () => {
+                    const goalIndex = goals.findIndex(g => g.id === goal.id);
+                    if (goalIndex !== -1) {
+                        goals[goalIndex].completed = checkbox.checked;
+                        if (checkbox.checked && !goals[goalIndex].endTime) {
+                            goals[goalIndex].endTime = new Date();
+                            clearInterval(goals[goalIndex].timerIntervalId);
+                            const elapsedTime = Math.floor((goals[goalIndex].endTime.getTime() - goals[goalIndex].startTime.getTime()) / 1000);
+                            goals[goalIndex].actualTime = elapsedTime;
+                            goals[goalIndex].inTime = elapsedTime <= goals[goalIndex].duration;
+                            renderResults();
+                        } else if (!checkbox.checked && goals[goalIndex].endTime) {
+                            goals[goalIndex].endTime = null;
+                            goals[goalIndex].actualTime = null;
+                            goals[goalIndex].inTime = false;
+                            startGoalTimer(goals[goalIndex]); // Restart timer if unchecked
+                        }
+                        renderGoals(); // Re-render to update start button visibility
+                    }
+                });
+
+                const startButton = listItem.querySelector('.start-goal');
+                if (startButton) {
+                    startButton.addEventListener('click', () => {
+                        const goalIndex = goals.findIndex(g => g.id === parseInt(startButton.dataset.id));
+                        if (goalIndex !== -1 && !goals[goalIndex].startTime) {
+                            startGoalTimer(goals[goalIndex]);
+                            renderGoals(); // Hide start button after starting
+                        }
+                    });
+                }
+            });
+        }
+
+        function renderResults() {
+            resultsList.innerHTML = '';
+            goals.forEach(goal => {
+                if (goal.endTime) {
+                    const listItem = document.createElement('li');
+                    const targetMinutes = Math.floor(goal.duration / 60);
+                    const targetSeconds = goal.duration % 60;
+                    const actualMinutes = Math.floor(goal.actualTime / 60);
+                    const actualSeconds = goal.actualTime % 60;
+                    const completionTimeFormatted = formatTime(goal.endTime);
+                    listItem.textContent = `${goal.text}: Target ${targetMinutes}m ${targetSeconds}s, Actual ${actualMinutes}m ${actualSeconds}s (Completed at ${completionTimeFormatted}) - ${goal.inTime ? 'In Time!' : 'Over Time'}`;
+                    resultsList.appendChild(listItem);
+                }
+            });
+        }
+
+        function formatTime(date) {
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Calculator functionality
+        const calculatorPopup = document.getElementById('calculator-popup');
+        const calculatorDisplay = document.getElementById('calculator-display');
+        let currentInput = '';
+        let operator = null;
+        let previousValue = null;
+
+        function toggleCalculator() {
+            calculatorPopup.classList.toggle('hidden');
+        }
+
+        function appendNumber(number) {
+            currentInput = currentInput === '0' ? String(number) : currentInput + number;
+            calculatorDisplay.value = currentInput;
+        }
+
+        function appendOperator(op) {
+            if (currentInput === '') return;
+            if (previousValue !== null) {
+                calculate();
+            }
+            previousValue = parseFloat(currentInput);
+            operator = op;
+            currentInput = '';
+        }
+
+        function appendDecimal() {
+            if (!currentInput.includes('.')) {
+                currentInput += '.';
+                calculatorDisplay.value = currentInput;
+            }
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            operator = null;
+            previousValue = null;
+            calculatorDisplay.value = currentInput;
+        }
+
+        function calculate() {
+            if (operator === null || previousValue === null) return;
+            let result;
+            const currentValue = parseFloat(currentInput);
+            switch (operator) {
+                case '+':
+                    result = previousValue + currentValue;
+                    break;
+                case '-':
+                    result = previousValue - currentValue;
+                    break;
+                case '*':
+                    result = previousValue * currentValue;
+                    break;
+                case '/':
+                    if (currentValue === 0) {
+                        result = 'Error';
+                    } else {
+                        result = previousValue / currentValue;
+                    }
+                    break;
+                default:
+                    return;
+            }
+            currentInput = String(result);
+            calculatorDisplay.value = currentInput;
+            operator = null;
+            previousValue = null;
+        }
+
+        // Initial rendering
+        renderGoals();
+    </script>
+</body>
+</html>
