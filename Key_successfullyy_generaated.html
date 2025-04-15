@@ -4,23 +4,25 @@
   <meta charset="UTF-8">
   <title>Ad Confirmation</title>
   <script>
-    // Check if pass=ok exists in URL
     let params = new URLSearchParams(window.location.search);
     if (!params.has('pass') || params.get('pass') !== 'ok') {
         alert("Please go through the shortener link first!");
-        window.location.href = "https://lksfy.com/rbKNnfm9";
+        window.location.href = "https://lksfy.com/generate-key";
     } else {
-        // Set 24-hour timestamp in localStorage
-        localStorage.setItem('adWatchedTime', Date.now());
-        // Redirect to main page after 2 seconds (for effect)
+        // Check if already verified
+        if (!localStorage.getItem('adVerified')) {
+            localStorage.setItem('adVerified', 'true');
+            localStorage.setItem('adWatchedTime', Date.now());
+        }
+        // Redirect to main page
         setTimeout(function() {
             window.location.href = "studysmarterr.netlify.app";
-        }, 2000);
+        }, 1500);
     }
   </script>
 </head>
 <body>
-  <h2>Verifying your access...</h2>
-  <p>Please wait while we confirm your ad view.</p>
+  <h2>Verifying your ad completion...</h2>
+  <p>Please wait a moment.</p>
 </body>
 </html>
