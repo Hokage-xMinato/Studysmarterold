@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ad Confirmation</title>
-    <script>
-        // Referrer check: Ensure the user came from the shortener link
-        if (document.referrer !== "https://lksfy.com/rbKNnfm9") {
-            alert("Please go through the shortener link first!");
-            window.location.href = "https://lksfy.com/rbKNnfm9"; // Redirect back to shortener if not from the shortener
-        } else {
-            // Set the time of access in milliseconds
-        let now = Date.now();
-        localStorage.setItem('adWatchedTime', now);
-        window.location.href = "studysmarterr.netlify.app";
+  <meta charset="UTF-8">
+  <title>Ad Confirmation</title>
+  <script>
+    // Check if pass=ok exists in URL
+    let params = new URLSearchParams(window.location.search);
+    if (!params.has('pass') || params.get('pass') !== 'ok') {
+        alert("Please go through the shortener link first!");
+        window.location.href = "https://lksfy.com/rbKNnfm9";
+    } else {
+        // Set 24-hour timestamp in localStorage
+        localStorage.setItem('adWatchedTime', Date.now());
+        // Redirect to main page after 2 seconds (for effect)
+        setTimeout(function() {
+            window.location.href = "studysmarterr.netlify.app";
+        }, 2000);
     }
-    </script>
+  </script>
 </head>
 <body>
-    <h1>Thank you for watching the ads!</h1>
-    <p>You will be redirected shortly to the content.</p>
+  <h2>Verifying your access...</h2>
+  <p>Please wait while we confirm your ad view.</p>
 </body>
 </html>
