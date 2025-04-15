@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Confirmation</title>
+    <script>
+        // Referrer check: Ensure the user came from the shortener link
+        if (document.referrer !== "YOUR_SHORTENER_URL") {
+            alert("Please go through the shortener link first!");
+            window.location.href = "YOUR_SHORTENER_URL"; // Redirect back to shortener if not from the shortener
+        } else {
+            // Allow access to content and set flag
+            localStorage.setItem('adWatched', 'true');
+            window.location.href = "YOUR_MAIN_PAGE_URL"; // Redirect to main content after confirmation
+        }
+    </script>
+</head>
+<body>
+    <h1>Thank you for watching the ads!</h1>
+    <p>You will be redirected shortly to the content.</p>
+</body>
+</html>
