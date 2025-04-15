@@ -55,14 +55,14 @@
 </style>
 
    <script>
-    let adTime = localStorage.getItem('adWatchedTime');
-    let now = Date.now();
+     let adVerified = localStorage.getItem('adVerified');
+let lastWatched = localStorage.getItem('adWatchedTime');
 
-    // Check if ad was watched and within 24 hours (86400000 ms = 24 hours)
-    if (!adTime || now - adTime > 86400000) {
-        alert("You need to generate a new access key.");
-        window.location.href = "https://lksfy.com/rbKNnfm9";
-    } else {
+// Check if not verified or time expired
+if (!adVerified || !lastWatched || (Date.now() - lastWatched) > (24 * 60 * 60 * 1000)) {
+    window.location.href = "YOUR_SHORTENER_URL";
+}
+   else {
         // Allow access to content
         document.getElementById('content').style.display = "block";
     }
