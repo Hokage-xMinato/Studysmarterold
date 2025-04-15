@@ -60,7 +60,7 @@ let lastWatched = localStorage.getItem('adWatchedTime');
 
 // Check if not verified or time expired
 if (!adVerified || !lastWatched || (Date.now() - lastWatched) > (24 * 60 * 60 * 1000)) {
-    window.location.href = "YOUR_SHORTENER_URL";
+    window.location.href = "https://lksfy.com/generate-key";
 }
    else {
         // Allow access to content
