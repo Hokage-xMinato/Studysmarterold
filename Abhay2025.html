@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Study Smarter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
   
 <style>
   #loading-container {
@@ -53,6 +53,18 @@
     100% { transform: rotateX(360deg) rotateY(360deg); }
   }
 </style>
+
+   <script>
+        // Check if user has watched the ads (by checking localStorage flag)
+        if (!localStorage.getItem('adWatched')) {
+            alert("You need to watch the ad first.");
+            window.location.href = "https://lksfy.com/rbKNnfm9"; // Redirect to shortener link if not watched
+        } else {
+            // Allow access to the content
+            document.getElementById('content').style.display = "block"; // Display main content
+        }
+    </script>
+  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
