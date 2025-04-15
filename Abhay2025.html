@@ -55,15 +55,18 @@
 </style>
 
    <script>
-        // Check if user has watched the ads (by checking localStorage flag)
-        if (!localStorage.getItem('adWatched')) {
-            alert("You need to watch the ad first.");
-            window.location.href = "https://lksfy.com/rbKNnfm9"; // Redirect to shortener link if not watched
-        } else {
-            // Allow access to the content
-            document.getElementById('content').style.display = "block"; // Display main content
-        }
-    </script>
+    let adTime = localStorage.getItem('adWatchedTime');
+    let now = Date.now();
+
+    // Check if ad was watched and within 24 hours (86400000 ms = 24 hours)
+    if (!adTime || now - adTime > 86400000) {
+        alert("You need to generate a new access key.");
+        window.location.href = "YOUR_SHORTENER_URL";
+    } else {
+        // Allow access to content
+        document.getElementById('content').style.display = "block";
+    }
+   </script>
   
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
