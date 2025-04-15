@@ -10,10 +10,11 @@
             alert("Please go through the shortener link first!");
             window.location.href = "https://lksfy.com/rbKNnfm9"; // Redirect back to shortener if not from the shortener
         } else {
-            // Allow access to content and set flag
-            localStorage.setItem('adWatched', 'true');
-            window.location.href = "https:/studysmarterr.netlify.app"; // Redirect to main content after confirmation
-        }
+            // Set the time of access in milliseconds
+        let now = Date.now();
+        localStorage.setItem('adWatchedTime', now);
+        window.location.href = "studysmarterr.netlify.app";
+    }
     </script>
 </head>
 <body>
