@@ -190,7 +190,7 @@ main {
 }
 
 .resource-card {
-  background-color: purple;
+  background-color: #7f00ff;
   border-radius: var(--border-radius-md);
   box-shadow: 0 4px 8px var(--shadow-color);
   padding: 30px; /* Increased padding */
