@@ -9,24 +9,180 @@
     <link rel="icon" href="study-icon.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Preloader Styles */
-#preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, #000000 0%, #0a0a0a 100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  transition: opacity 1s ease;
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+/* Rest of your CSS starts here */
+body {
+    margin: 0;
+    /* ... */
+}
+        
+ /* Styles for the Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff00cc, #3333ff, #00ffcc); /* Vibrant gradient */
+    background-size: 400% 400%; /* Larger background for animation */
+    animation: gradient-animation 15s ease infinite; /* Animated gradient */
+    display: flex;
+    justify-content: center; /* Center the loader content */
+    align-items: center; /* Center the loader content */
+    z-index: 9999; /* Stay on top of other content */
+    transition: opacity 0.5s ease-out; /* Fade out effect */
+    overflow: hidden; /* Hide circles overflowing the screen */
 }
 
-canvas {
-  background: transparent;
+/* Hide scrolling while loading to prevent seeing content below */
+body.loading {
+    overflow: hidden;
 }
+
+/* Container for background circles */
+.background-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: 1; /* Below the loader content */
+}
+
+/* Style for individual circles */
+.circle {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+    animation: animate-circle 25s linear infinite; /* Base animation */
+    bottom: -150px; /* Start from below the screen */
+    border-radius: 50%;
+}
+
+/* Variations for different circles */
+.circle-1 { left: 25%; width: 80px; height: 80px; animation-delay: 0s; animation-duration: 15s;}
+.circle-2 { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s;}
+.circle-3 { left: 70%; width: 20px; height: 20px; animation-delay: 4s; animation-duration: 18s;}
+.circle-4 { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s;}
+.circle-5 { left: 65%; width: 20px; height: 20px; animation-delay: 0s; animation-duration: 15s;}
+.circle-6 { left: 75%; width: 110px; height: 110px; animation-delay: 3s; animation-duration: 16s;}
+.circle-7 { left: 35%; width: 150px; height: 150px; animation-delay: 7s; animation-duration: 20s;}
+.circle-8 { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 14s;}
+.circle-9 { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 16s;}
+.circle-10 { left: 85%; width: 150px; height: 150px; animation-delay: 5s; animation-duration: 12s;}
+/* Add more styles for circle-11, circle-12, etc. if you added more divs */
+
+
+/* Container to ensure loader content is above background circles */
+.loader-content {
+    position: relative; /* Create a new stacking context */
+    z-index: 2; /* Above background circles */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.spinner {
+    border: 8px solid rgba(255, 255, 255, 0.2); /* Slightly more transparent border */
+    border-top: 8px solid #ffffff; /* White top border */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1.5s linear infinite; /* Circling animation */
+}
+
+.progress-text {
+    margin-top: 15px;
+    font-size: 2em; /* Increased font size for better visibility */
+    font-family: 'Dancing Script', cursive; /* Apply the cursive font */
+    /* Using a vibrant gradient for the text color */
+    background: linear-gradient(45deg, #ff9900, #ff0066, #6600cc);
+    -webkit-background-clip: text; /* Apply gradient to text */
+    -webkit-text-fill-color: transparent; /* Hide original text color */
+    background-clip: text;
+    text-fill-color: transparent;
+    /* Optional: Add a subtle animation to the gradient position */
+    background-size: 200% auto;
+    animation: text-gradient-animation 3s linear infinite;
+
+    animation: pulse 1.5s infinite; /* Keep the pulsing animation */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3); /* Enhanced shadow for readability */
+}
+
+/* Add the keyframe animation for the text gradient */
+@keyframes text-gradient-animation {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+
+        
+
+.progress-bar-container {
+    width: 200px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.2); /* Slightly more transparent track */
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%; /* Starts empty */
+    height: 100%;
+    background-color: #ffffff; /* White fill */
+    border-radius: 5px;
+    transition: width 0.1s linear; /* Smooth filling animation */
+}
+
+/* Keyframe Animations */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; } /* Adjusted pulse intensity */
+    100% { opacity: 1; }
+}
+
+@keyframes gradient-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes animate-circle {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0; /* Start as square */
+    }
+    20% {
+         border-radius: 50%; /* Quickly become round */
+    }
+    100% {
+        transform: translateY(-1000px) rotate(720deg); /* Move up and rotate */
+        opacity: 0; /* Fade out */
+    }
+}
+
+
+
+    
         .special-btn {
   display: inline-block;
   margin: 15px 0;
@@ -213,10 +369,33 @@ canvas {
     </style>
 </head>
 <body>
-    <!-- Preloader Spinner -->
-<div id="preloader">
-  <canvas id="canvas" width="300" height="300"></canvas>
+    <div id="loading-screen">
+    <div class="background-elements">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+        <div class="circle circle-4"></div>
+        <div class="circle circle-5"></div>
+        <div class="circle circle-6"></div>
+        <div class="circle circle-7"></div>
+        <div class="circle circle-8"></div>
+        <div class="circle circle-9"></div>
+        <div class="circle circle-10"></div>
+        </div>
+
+    <div class="loader-content">
+        <div class="loader">
+            <div class="spinner"></div>
+            <div class="progress-text">Loading...</div>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
 </div>
+
+
+    
     
   <div class="animated-background"></div>
 
@@ -327,81 +506,46 @@ canvas {
         }
     </script>
     <script>
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
-  const cx = canvas.width / 2;
-  const cy = canvas.height / 2;
+    window.addEventListener('load', () => {
+        const loadingScreen = document.getElementById('loading-screen');
+        const mainContent = document.getElementById('main-content'); // Make sure this ID matches your main content div
+        const progressBar = document.querySelector('.progress-bar');
 
-  const rings = [
-  { radius: 80, angle: 0, speed: 0.015, hueOffset: 0 },
-  { radius: 60, angle: 0, speed: -0.02, hueOffset: 120 },
-  { radius: 40, angle: 0, speed: 0.025, hueOffset: 240 }
-];
-  const trailLength = 1.6 * Math.PI;
+        const loadingDuration = 5000; // 5 seconds in milliseconds
+        const intervalTime = 50; // Update progress bar every 50ms
+        const steps = loadingDuration / intervalTime;
+        let currentStep = 0;
 
-  function hslToColor(hue) {
-    return `hsl(${hue % 360}, 100%, 70%)`;
-  }
+        // Add a class to the body to prevent scrolling while loading
+        document.body.classList.add('loading');
 
-  function drawRing(x, y, radius, angle, hue) {
-    const color = hslToColor(hue);
-    ctx.beginPath();
-    ctx.arc(x, y, radius, angle, angle + trailLength);
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 12;
-    ctx.lineCap = "round";
-    ctx.shadowColor = color;
-    ctx.shadowBlur = 50;
-    ctx.stroke();
-  }
+        const progressInterval = setInterval(() => {
+            currentStep++;
+            const progress = (currentStep / steps) * 100;
+            progressBar.style.width = `${progress}%`;
 
-  const stars = [];
-  for (let i = 0; i < 80; i++) {
-    stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 1.5 + 0.5,
-      alpha: Math.random(),
-      delta: (Math.random() * 0.02) + 0.005
+            if (currentStep >= steps) {
+                clearInterval(progressInterval);
+
+                // Fade out the loading screen
+                loadingScreen.style.opacity = 0;
+
+                // Wait for the transition to finish before hiding and showing content
+                loadingScreen.addEventListener('transitionend', () => {
+                    loadingScreen.style.display = 'none'; // Hide the loading screen completely
+
+                    // Show the main content
+                     if (mainContent) { // Check if mainContent element exists
+                       mainContent.style.display = 'block'; // Or 'flex', 'grid', etc., depending on your layout
+                    }
+
+                    // Remove the loading class from body to allow scrolling again
+                    document.body.classList.remove('loading');
+                }, { once: true }); // Use { once: true } to remove the listener after it runs
+            }
+        }, intervalTime);
     });
-  }
-
-  function drawStars() {
-    stars.forEach((star) => {
-      star.alpha += star.delta;
-      if (star.alpha <= 0 || star.alpha >= 1) star.delta = -star.delta;
-
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
-      ctx.shadowColor = "white";
-      ctx.shadowBlur = 5;
-      ctx.fill();
-    });
-  }
-
-  function animate(time) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawStars();
-    const globalHue = (time * 0.05) % 360;
-
-    rings.forEach((ring) => {
-      const hue = globalHue + ring.hueOffset;
-      drawRing(cx, cy, ring.radius, ring.angle, hue);
-      ring.angle += ring.speed;
-    });
-
-    requestAnimationFrame(animate);
-  }
-
-  requestAnimationFrame(animate);
-
-  // Hide preloader after 5 seconds
-  setTimeout(() => {
-    const preloader = document.getElementById("preloader");
-    preloader.style.opacity = 0;
-    setTimeout(() => preloader.remove(), 1000);
-  }, 5000);
-    </script>
+                            </script>
+    
 </body>
 </html>
