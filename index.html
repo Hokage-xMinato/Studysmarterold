@@ -9,176 +9,33 @@
     <link rel="icon" href="study-icon.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
-
-/* Rest of your CSS starts here */
-body {
-    margin: 0;
-    /* ... */
-}
-        
- /* Styles for the Loading Screen */
-#loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #ff00cc, #3333ff, #00ffcc); /* Vibrant gradient */
-    background-size: 400% 400%; /* Larger background for animation */
-    animation: gradient-animation 15s ease infinite; /* Animated gradient */
-    display: flex;
-    justify-content: center; /* Center the loader content */
-    align-items: center; /* Center the loader content */
-    z-index: 9999; /* Stay on top of other content */
-    transition: opacity 0.5s ease-out; /* Fade out effect */
-    overflow: hidden; /* Hide circles overflowing the screen */
-}
-
-/* Hide scrolling while loading to prevent seeing content below */
-body.loading {
-    overflow: hidden;
-}
-
-/* Container for background circles */
-.background-elements {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Allow clicks to pass through */
-    z-index: 1; /* Below the loader content */
-}
-
-/* Style for individual circles */
-.circle {
-    position: absolute;
-    display: block;
-    list-style: none;
-    width: 20px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
-    animation: animate-circle 25s linear infinite; /* Base animation */
-    bottom: -150px; /* Start from below the screen */
-    border-radius: 50%;
-}
-
-/* Variations for different circles */
-.circle-1 { left: 25%; width: 80px; height: 80px; animation-delay: 0s; animation-duration: 15s;}
-.circle-2 { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s;}
-.circle-3 { left: 70%; width: 20px; height: 20px; animation-delay: 4s; animation-duration: 18s;}
-.circle-4 { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s;}
-.circle-5 { left: 65%; width: 20px; height: 20px; animation-delay: 0s; animation-duration: 15s;}
-.circle-6 { left: 75%; width: 110px; height: 110px; animation-delay: 3s; animation-duration: 16s;}
-.circle-7 { left: 35%; width: 150px; height: 150px; animation-delay: 7s; animation-duration: 20s;}
-.circle-8 { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 14s;}
-.circle-9 { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 16s;}
-.circle-10 { left: 85%; width: 150px; height: 150px; animation-delay: 5s; animation-duration: 12s;}
-/* Add more styles for circle-11, circle-12, etc. if you added more divs */
-
-
-/* Container to ensure loader content is above background circles */
-.loader-content {
-    position: relative; /* Create a new stacking context */
-    z-index: 2; /* Above background circles */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-.loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.spinner {
-    border: 8px solid rgba(255, 255, 255, 0.2); /* Slightly more transparent border */
-    border-top: 8px solid #ffffff; /* White top border */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1.5s linear infinite; /* Circling animation */
-}
-
-.progress-text {
-    margin-top: 15px;
-    font-size: 2em; /* Increased font size for better visibility */
-    font-family: 'Dancing Script', cursive; /* Apply the cursive font */
-    /* Using a vibrant gradient for the text color */
-    background: linear-gradient(45deg, #ff9900, #ff0066, #6600cc);
-    -webkit-background-clip: text; /* Apply gradient to text */
-    -webkit-text-fill-color: transparent; /* Hide original text color */
-    background-clip: text;
-    text-fill-color: transparent;
-    /* Optional: Add a subtle animation to the gradient position */
-    background-size: 200% auto;
-    animation: text-gradient-animation 3s linear infinite;
-
-    animation: pulse 1.5s infinite; /* Keep the pulsing animation */
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3); /* Enhanced shadow for readability */
-}
-
-/* Add the keyframe animation for the text gradient */
-@keyframes text-gradient-animation {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-}
-
-
         
 
-.progress-bar-container {
-    width: 200px;
-    height: 10px;
-    background-color: rgba(255, 255, 255, 0.2); /* Slightly more transparent track */
-    border-radius: 5px;
+      #preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Background will be handled by the canvas for smooth animation */
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 1s ease;
+}
+
+canvas {
+  display: block; /* Remove potential extra space below the canvas */
+  width: 100%;
+  height: 100%;
+  background: transparent; /* Initially transparent */
+}
+        body.no-scroll {
     overflow: hidden;
-}
-
-.progress-bar {
-    width: 0%; /* Starts empty */
-    height: 100%;
-    background-color: #ffffff; /* White fill */
-    border-radius: 5px;
-    transition: width 0.1s linear; /* Smooth filling animation */
-}
-
-/* Keyframe Animations */
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.7; } /* Adjusted pulse intensity */
-    100% { opacity: 1; }
-}
-
-@keyframes gradient-animation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes animate-circle {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-        border-radius: 0; /* Start as square */
-    }
-    20% {
-         border-radius: 50%; /* Quickly become round */
-    }
-    100% {
-        transform: translateY(-1000px) rotate(720deg); /* Move up and rotate */
-        opacity: 0; /* Fade out */
-    }
-}
+        }
+        
 
 
 
@@ -496,56 +353,7 @@ body.loading {
         <p class="powered-by">Empowering Learners Worldwide</p>
     </footer>
 
-    <script>
-        function showResources() {
-            document.getElementById('resourcePopup').style.display = 'block';
-        }
-
-        function hideResources() {
-            document.getElementById('resourcePopup').style.display = 'none';
-        }
-    </script>
-    <script>
-    window.addEventListener('load', () => {
-        const loadingScreen = document.getElementById('loading-screen');
-        const mainContent = document.getElementById('main-content'); // Make sure this ID matches your main content div
-        const progressBar = document.querySelector('.progress-bar');
-
-        const loadingDuration = 5000; // 5 seconds in milliseconds
-        const intervalTime = 50; // Update progress bar every 50ms
-        const steps = loadingDuration / intervalTime;
-        let currentStep = 0;
-
-        // Add a class to the body to prevent scrolling while loading
-        document.body.classList.add('loading');
-
-        const progressInterval = setInterval(() => {
-            currentStep++;
-            const progress = (currentStep / steps) * 100;
-            progressBar.style.width = `${progress}%`;
-
-            if (currentStep >= steps) {
-                clearInterval(progressInterval);
-
-                // Fade out the loading screen
-                loadingScreen.style.opacity = 0;
-
-                // Wait for the transition to finish before hiding and showing content
-                loadingScreen.addEventListener('transitionend', () => {
-                    loadingScreen.style.display = 'none'; // Hide the loading screen completely
-
-                    // Show the main content
-                     if (mainContent) { // Check if mainContent element exists
-                       mainContent.style.display = 'block'; // Or 'flex', 'grid', etc., depending on your layout
-                    }
-
-                    // Remove the loading class from body to allow scrolling again
-                    document.body.classList.remove('loading');
-                }, { once: true }); // Use { once: true } to remove the listener after it runs
-            }
-        }, intervalTime);
-    });
-                            </script>
+<script src="loading.js"></script>
     
 </body>
 </html>
