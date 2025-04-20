@@ -332,6 +332,40 @@ canvas {
         <p>&copy; 2025 Study Smarter. All Rights Reserved.</p>
         <p class="powered-by">Empowering Learners Worldwide</p>
     </footer>
+    // --- JavaScript Code ---
+
+// Function to show the popup
+function showResources() {
+  const resourcePopup = document.getElementById('resourcePopup');
+  if (resourcePopup) { // Check if the element exists
+    resourcePopup.style.display = 'block'; // Use 'block' to make it visible
+    // Or you could use 'flex' if you planned to use flexbox inside the popup:
+    // resourcePopup.style.display = 'flex';
+  } else {
+    console.error("Element with ID 'resourcePopup' not found.");
+  }
+}
+
+// Function to hide the popup
+function hideResources() {
+  const resourcePopup = document.getElementById('resourcePopup');
+  if (resourcePopup) { // Check if the element exists
+    resourcePopup.style.display = 'none'; // Hide the element
+  } else {
+    console.error("Element with ID 'resourcePopup' not found.");
+  }
+}
+
+// You should also ensure the popup is hidden initially when the page loads,
+// although your CSS already does this with `display: none;`. This is a
+// belt-and-suspenders approach.
+// window.onload = function() {
+//   const resourcePopup = document.getElementById('resourcePopup');
+//   if (resourcePopup) {
+//     resourcePopup.style.display = 'none';
+//   }
+// };
+    
 
 <script src="loading.js"></script>
     
