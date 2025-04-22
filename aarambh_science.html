@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* Hide scrollbars */
+            font-family: sans-serif;
+            color: #fff;
+            position: relative;
+            background: linear-gradient(45deg, #ff9a8b 0%, #ff6a88 55%, #ff99ac 100%);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .background-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1; /* Send shapes behind content */
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.6;
+            animation: moveShapes 10s linear infinite;
+        }
+
+        .circle {
+            border-radius: 50%;
+        }
+
+        .square {
+            /* Default square */
+        }
+
+        @keyframes moveShapes {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(100vw, 100vh) rotate(360deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1; /* Bring content to front */
+            text-align: center;
+            padding-top: 50px;
+            display: flex; /* Use Flexbox */
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically if container has defined height */
+            min-height: calc(100vh - 50px); /* Ensure container takes up most of viewport height */
+        }
+
+        h1 {
+            color: #fff; /* Title color */
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px; /* Add space below title */
+        }
+
+        .button-container {
+            display: flex; /* Use Flexbox */
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: center; /* Center buttons horizontally within their container */
+        }
+
+        .math-button {
+            display: block; /* Ensure buttons take full width within button-container */
+            padding: 15px 30px;
+            margin: 10px 0; /* Add vertical margin, remove horizontal */
+            background-color: #007bff; /* Blue color */
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            min-width: 150px; /* Give buttons a minimum width */
+        }
+
+        .math-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .math-button:active {
+            background-color: #003f7f;
+            transform: scale(0.98);
+        }
+
+        /* Additional Decorations */
+        .decoration {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            animation: pulse 3s ease-in-out infinite alternate;
+        }
+
+        .decoration:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .decoration:nth-child(2) { top: 80%; left: 20%; animation-delay: 1s; }
+        .decoration:nth-child(3) { top: 30%; left: 90%; animation-delay: 0.5s; }
+        .decoration:nth-child(4) { top: 60%; left: 5%; animation-delay: 1.5s; }
+        .decoration:nth-child(5) { top: 50%; left: 70%; animation-delay: 2s; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.1; }
+            100% { transform: scale(1.2); opacity: 0.3; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="background-shapes"></div>
+
+    <div class="container">
+        <h1>Science</h1>
+
+        <div class="button-container">
+            <a href="https://www.youtube.com/live/TRS7cu_n108?si=s83eBvYgb0f2Zots" class="math-button">Chemical Reactions and Equations 1</a>
+            <a href="https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4352723/174480784354101097666/index_1.m3u8" class="math-button">Chemical Reactions and Equations 2</a>
+            <a href="https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4353809/174489432994287880624/index_1.m3u8" class="math-button">Chemical Reactions and Equations 3</a>
+            <a href="https://d1qcficr3lu37x.cloudfront.net/file_library/videos/channel_vod_non_drm_hls/4354717/174498038229378296383/index_1.m3u8" class="math-button">Chemical Reactions and Equations 4</a>
+            <a href="#" class="math-button">Chemical Reactions and Equations 5</a>
+            </div>
+    </div>
+
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+
+
+    <script>
+        const backgroundShapes = document.querySelector('.background-shapes');
+        const numberOfShapes = 30; // Adjust as needed
+
+        for (let i = 0; i < numberOfShapes; i++) {
+            const shape = document.createElement('div');
+            shape.classList.add('shape');
+
+            // Randomly choose between circle and square
+            if (Math.random() > 0.5) {
+                shape.classList.add('circle');
+                shape.style.width = shape.style.height = `${Math.random() * 30 + 10}px`; // Random size
+                shape.style.backgroundColor = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.5)`; // Random color
+                shape.style.top = `${Math.random() * 100}vh`;
+                shape.style.left = `${Math.random() * 100}vw`;
+                shape.style.animationDuration = `${Math.random() * 10 + 5}s`; // Random animation duration
+                shape.style.animationDelay = `${Math.random() * 5}s`; // Random animation delay
+                shape.style.animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse'; // Random direction
+            } else {
+                shape.classList.add('square');
+                 shape.style.width = shape.style.height = `${Math.random() * 30 + 10}px`; // Random size
+                 shape.style.backgroundColor = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.5)`; // Random color
+                 shape.style.top = `${Math.random() * 100}vh`;
+                 shape.style.left = `${Math.random() * 100}vw`;
+                 shape.style.animationDuration = `${Math.random() * 10 + 5}s`; // Random animation duration
+                 shape.style.animationDelay = `${Math.random() * 5}s`; // Random animation delay
+                 shape.style.animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse'; // Random direction
+            }
+
+
+            backgroundShapes.appendChild(shape);
+        }
+
+         // Adjust moveShapes keyframes for better distribution
+        const styleSheet = document.styleSheets[0];
+        for (const rule of styleSheet.cssRules) {
+            if (rule.name === 'moveShapes') {
+                // Modify the 100% keyframe to move shapes to random positions
+                // Check if the 100% rule already exists
+                let hundredPercentRule = null;
+                for(const subRule of rule.cssRules) {
+                    if (subRule.keyText === '100%') {
+                        hundredPercentRule = subRule;
+                        break;
+                    }
+                }
+
+                if (hundredPercentRule) {
+                    hundredPercentRule.style.transform = `translate(calc(${Math.random() * 200 - 50}vw + ${Math.random() * 200 - 50}vh), calc(${Math.random() * 200 - 50}vh + ${Math.random() * 200 - 50}vw)) rotate(${Math.random() * 720}deg)`;
+                } else {
+                     // If somehow the 100% rule wasn't in the initial CSS, add it
+                     rule.appendRule(`100% { transform: translate(calc(${Math.random() * 200 - 50}vw + ${Math.random() * 200 - 50}vh), calc(${Math.random() * 200 - 50}vh + ${Math.random() * 200 - 50}vw)) rotate(${Math.random() * 720}deg); }`);
+                }
+                break;
+            }
+        }
+
+
+    </script>
+
+</body>
+</html>
